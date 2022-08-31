@@ -5,6 +5,7 @@ import { createRoot } from "react-dom/client";
 import Root from "./Root";
 
 import "normalize.css";
+import "./global.css";
 
 async function render(Component: typeof Root, rootElement: HTMLElement) {
   console.log("in vite, meta stuff is in import.meta", import.meta.env);
@@ -17,7 +18,7 @@ async function render(Component: typeof Root, rootElement: HTMLElement) {
   }
 
   const root = createRoot(rootElement);
-  root.render(<Component />);
+  root.render(<Root />);
 }
 
 const rootElement = document.getElementById("root");

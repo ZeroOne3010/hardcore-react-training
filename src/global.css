@@ -1,0 +1,13 @@
+html {
+}
+
+h1 {
+  font-variant: small-caps;
+  font-family: sans-serif;
+  margin: 1em 0.5em;
+}
+
+h1 > sup {
+  color: grey;
+  font-size: 70%;
+}
