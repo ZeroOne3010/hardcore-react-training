@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { FC, memo } from "react";
+import { FC, memo, useRef, useEffect } from "react";
 import { v4 } from "uuid";
 import * as Yup from "yup";
 import { DuckProspectType } from "../services/ducks";
@@ -20,6 +20,12 @@ const schema = Yup.object().shape({
 });
 
 const HireDuckForm: FC<Props> = ({ onHireDuck }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <div>
       <Formik
@@ -46,7 +52,12 @@ const HireDuckForm: FC<Props> = ({ onHireDuck }) => {
             <Form>
               <div>
                 <label htmlFor="firstName">Etunimi</label>
-                <Field type="text" name="firstName" id="firstName" />
+                <Field
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  innerRef={inputRef}
+                />
                 <ErrorMessage name="firstName" />
               </div>
               <div>
