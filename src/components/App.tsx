@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import gaylordImage from "../assets/gaylord-mcduck.jpg";
 import {
   DuckProspectType,
@@ -44,22 +44,30 @@ const App: FC = () => {
     console.log("duck state was changed");
   }, [duckState]);
 
-  const onFireDuck = async (duckId: string): Promise<void> => {
-    console.log("Erotetaan ", duckId);
+  const onFireDuck = useCallback(
+    async (duckId: string): Promise<void> => {
+      console.log("Erotetaan ", duckId);
 
-    await fireDuck(duckId);
+      await fireDuck(duckId);
 
-    setDuckState((currentDucks) => currentDucks.filter((d) => d.id !== duckId));
-  };
+      setDuckState((currentDucks) =>
+        currentDucks.filter((d) => d.id !== duckId)
+      );
+    },
+    [setDuckState]
+  );
 
-  const onHireDuck = async (prospect: DuckProspectType): Promise<void> => {
-    console.log("Palkataan ", prospect.firstName);
-    const hiredDuck = await hireDuck(prospect);
-    setDuckState((currentDucks) => {
-      return [...currentDucks, hiredDuck];
-      //return currentDucks.concat(hiredDuck);
-    });
-  };
+  const onHireDuck = useCallback(
+    async (prospect: DuckProspectType): Promise<void> => {
+      console.log("Palkataan ", prospect.firstName);
+      const hiredDuck = await hireDuck(prospect);
+      setDuckState((currentDucks) => {
+        return [...currentDucks, hiredDuck];
+        //return currentDucks.concat(hiredDuck);
+      });
+    },
+    [setDuckState]
+  );
 
   const goodDucks = duckState.filter(isGood);
   const badDucks = duckState.filter((d) => !isGood(d));
