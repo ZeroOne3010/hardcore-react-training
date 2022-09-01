@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState, useMemo } from "react";
 import gaylordImage from "../assets/gaylord-mcduck.jpg";
 import {
   DuckProspectType,
@@ -69,8 +69,11 @@ const App: FC = () => {
     [setDuckState]
   );
 
-  const goodDucks = duckState.filter(isGood);
-  const badDucks = duckState.filter((d) => !isGood(d));
+  const goodDucks = useMemo(() => duckState.filter(isGood), [duckState]);
+  const badDucks = useMemo(
+    () => duckState.filter((d) => !isGood(d)),
+    [duckState]
+  );
 
   return (
     <main className={mainClass}>

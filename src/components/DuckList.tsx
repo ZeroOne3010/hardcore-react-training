@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { DuckType } from "../services/ducks";
 import Duck from "./Duck";
 
@@ -19,4 +19,4 @@ const DuckList: FC<Props> = ({ ducks, showMetadata, fireDuck }) => {
   );
 };
 
-export default DuckList;
+export default memo(DuckList);

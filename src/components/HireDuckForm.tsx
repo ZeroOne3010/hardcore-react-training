@@ -1,5 +1,5 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { v4 } from "uuid";
 import * as Yup from "yup";
 import { DuckProspectType } from "../services/ducks";
@@ -55,7 +55,7 @@ const HireDuckForm: FC<Props> = ({ onHireDuck }) => {
                 <ErrorMessage name="lastName" />
               </div>
               <button type="submit" disabled={!isValid}>
-                Palkkaa!
+                🦆 Palkkaa!
               </button>
             </Form>
           );
@@ -65,4 +65,4 @@ const HireDuckForm: FC<Props> = ({ onHireDuck }) => {
   );
 };
 
-export default HireDuckForm;
+export default memo(HireDuckForm);
