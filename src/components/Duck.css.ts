@@ -7,8 +7,9 @@ import { style /*, globalStyle*/ } from "@vanilla-extract/css";
 export const duckClass = style({
   border: "10px solid black",
   padding: "1em",
-  margin: "1em 0.5em",
+  margin: "1em 0",
   borderRadius: "15px"
+  // display: "flex"
 });
 
 export const maleClass = style({

@@ -7,7 +7,14 @@ export type DuckType = {
   lastName: string;
   age: number;
   gender: 0 | 1 | 2;
+  migratesForWinters: boolean;
+  wingedness: "r" | "l";
+  birthDay: string;
+  relatedToCEO: boolean;
+  isAdmin: boolean;
 };
+
+export type DuckProspectType = Omit<DuckType, "age">;
 
 // const ducks: DuckType[] = [
 //   { id: "id-1", firstName: "Gaylord", lastName: "McDuck", age: 27, gender: 0 },
@@ -25,4 +32,20 @@ export const getDucks = async (): Promise<DuckType[]> => {
     console.error("OMG:", e);
     throw e;
   }
+};
+
+export const hireDuck = async (
+  prospect: DuckProspectType
+): Promise<DuckType> => {
+  console.log("Post hire");
+  const hiredDuck: DuckType = {
+    ...prospect,
+    age: 4.99
+  };
+  return hiredDuck;
+};
+
+export const fireDuck = async (id: string): Promise<void> => {
+  console.log("Post fire");
+  return;
 };
