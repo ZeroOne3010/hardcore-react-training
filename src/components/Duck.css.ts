@@ -1,12 +1,9 @@
-import { style /*, globalStyle*/ } from "@vanilla-extract/css";
-
-// globalStyle("html", {
-//   fontFamily: "monospace"
-// });
+import { style } from "@vanilla-extract/css";
+import { vars } from "../theme.css";
 
 export const duckClass = style({
   border: "10px solid black",
-  padding: "1em",
+  padding: vars.spacing[1],
   margin: "1em 0",
   borderRadius: "15px"
   // display: "flex"

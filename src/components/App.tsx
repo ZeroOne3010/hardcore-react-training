@@ -1,4 +1,5 @@
-import { FC, useCallback, useEffect, useState, useMemo } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
+import { Route, Routes } from "react-router";
 import gaylordImage from "../assets/gaylord-mcduck.jpg";
 import {
   DuckProspectType,
@@ -9,12 +10,9 @@ import {
 } from "../services/ducks";
 import { cleanse } from "../services/instance";
 import { mainClass } from "./App.css";
-import DuckList from "./DuckList";
-import HireDuckForm from "./HireDuckForm";
-
-const isGood = (duck: DuckType): boolean => {
-  return duck.age < 5 && duck.migratesForWinters === false;
-};
+import Button from "./Button";
+import DuckPage from "./DuckPage";
+import IndexPage from "./IndexPage";
 
 const App: FC = () => {
   const [duckState, setDuckState] = useState<DuckType[]>([]);
@@ -69,18 +67,12 @@ const App: FC = () => {
     [setDuckState]
   );
 
-  const goodDucks = useMemo(() => duckState.filter(isGood), [duckState]);
-  const badDucks = useMemo(
-    () => duckState.filter((d) => !isGood(d)),
-    [duckState]
-  );
-
   return (
     <main className={mainClass}>
       <h1>
         D<sup>uck</sup>ERP 3010
       </h1>
-      <button
+      <Button
         disabled={cleansing}
         onClick={async () => {
           setCleansing(true);
@@ -88,18 +80,26 @@ const App: FC = () => {
           setCleansing(false);
         }}
       >
-        {!cleansing ? "Puhdista kanta" : "Puhdistetaan kantaa..."}
-      </button>
+        {!cleansing ? "🧹 Puhdista kanta" : "⏳ Puhdistetaan kantaa..."}
+      </Button>
       <p>
         Ohjelmaa käytetty <strong>{counter}</strong> sekuntia.
       </p>
-      <HireDuckForm onHireDuck={onHireDuck} />
-      <h2>Pahat ankat</h2>
-      <DuckList ducks={badDucks} showMetadata={true} fireDuck={onFireDuck} />
+      <img src={gaylordImage} alt="Gaylord McDuck" style={{ width: "120px" }} />
 
-      <h2>Hyvät ankat</h2>
-      <DuckList ducks={goodDucks} showMetadata={false} fireDuck={onFireDuck} />
-      <img src={gaylordImage} alt="Gaylord McDuck" style={{ width: "200px" }} />
+      <Routes>
+        <Route
+          index
+          element={
+            <IndexPage
+              duckState={duckState}
+              onHireDuck={onHireDuck}
+              onFireDuck={onFireDuck}
+            />
+          }
+        />
+        <Route path="/duck/:id" element={<DuckPage ducks={duckState} />} />
+      </Routes>
     </main>
   );
 };

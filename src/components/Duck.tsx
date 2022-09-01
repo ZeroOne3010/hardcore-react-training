@@ -1,7 +1,9 @@
 import cx from "clsx";
 import { FC, memo } from "react";
 import { DuckType } from "../services/ducks";
+import Button from "./Button";
 import { duckClass, femaleClass, maleClass } from "./Duck.css";
+import { Link } from "react-router-dom";
 //import styles from "./Duck.module.css";
 
 //console.log(styles);
@@ -22,7 +24,9 @@ const Duck: FC<Props> = ({ duckValue, fireDuck }) => {
   return (
     <div className={classes}>
       <div>
-        {duckValue.lastName}, {duckValue.firstName}
+        <Link to={`/duck/${duckValue.id}`}>
+          {duckValue.lastName}, {duckValue.firstName}
+        </Link>
       </div>
       <div>
         {duckValue.age.toFixed(2)}
@@ -30,7 +34,9 @@ const Duck: FC<Props> = ({ duckValue, fireDuck }) => {
         {duckValue.migratesForWinters ? "Muuttaa talveksi" : "Ei muuta"}
       </div>
       <div>
-        <button onClick={() => fireDuck(duckValue.id)}>Vapauta</button>
+        <Button onClick={() => fireDuck(duckValue.id)} variant="secondary">
+          Vapauta
+        </Button>
       </div>
     </div>
   );
